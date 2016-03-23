@@ -5,11 +5,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import uk.ac.glasgow.jagora.Observer;
 import uk.ac.glasgow.jagora.Stock;
 import uk.ac.glasgow.jagora.TradeException;
 import uk.ac.glasgow.jagora.Trader;
 
-public abstract class AbstractTrader implements Trader {
+public abstract class AbstractTrader implements Trader,Observer {
 
 	private final String name;
 	private Double cash;
