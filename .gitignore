@@ -1,6 +1,8 @@
 *.DS_Store
 *.classpath
 *.xml
+*.iml
+.idea
 .metadata
 bin/
 tmp/
