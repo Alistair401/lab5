@@ -8,8 +8,8 @@ import java.util.Random;
 import org.junit.Before;
 import org.junit.Test;
 
-import uk.ac.glasgow.jagora.SEProxy;
 import uk.ac.glasgow.jagora.impl.RandomTrader;
+import uk.ac.glasgow.jagora.impl.SEProxy;
 import uk.ac.glasgow.jagora.test.TraderTest;
 import uk.ac.glasgow.jagora.test.stub.StubStockExchange;
 

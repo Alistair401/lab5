@@ -9,10 +9,11 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import uk.ac.glasgow.jagora.BuyOrder;
-import uk.ac.glasgow.jagora.SEProxy;
 import uk.ac.glasgow.jagora.SellOrder;
 import uk.ac.glasgow.jagora.StockExchange;
 import uk.ac.glasgow.jagora.Trader;
+import uk.ac.glasgow.jagora.impl.SEProxy;
+import uk.ac.glasgow.jagora.test.stub.StubStockExchange;
 
 @Ignore
 public abstract class StockExchangeAndTraderTest {
@@ -54,23 +55,24 @@ public abstract class StockExchangeAndTraderTest {
 	
 	@Test(expected=NoSuchMethodException.class)
 	public void testProxyApiForbiddenMethods()throws Exception{
-		Class.forName("uk.ac.glasgow.jagora.SEProxy").getMethod("doClearing");
+		Class.forName("uk.ac.glasgow.jagora.impl.SEProxy").getMethod("doClearing");
 	}
 	
 	@Test
 	public void testProxyApiAllowedMethods()throws Exception{
-		Class.forName("uk.ac.glasgow.jagora.SEProxy").getMethod("proxyPlaceBuyOrder",uk.ac.glasgow.jagora.BuyOrder.class);
-		Class.forName("uk.ac.glasgow.jagora.SEProxy").getMethod("proxyPlaceSellOrder",uk.ac.glasgow.jagora.SellOrder.class);
-		Class.forName("uk.ac.glasgow.jagora.SEProxy").getMethod("proxyCancelBuyOrder",uk.ac.glasgow.jagora.BuyOrder.class);
-		Class.forName("uk.ac.glasgow.jagora.SEProxy").getMethod("proxyCancelSellOrder",uk.ac.glasgow.jagora.SellOrder.class);
+		Class.forName("uk.ac.glasgow.jagora.impl.SEProxy").getMethod("proxyPlaceBuyOrder",uk.ac.glasgow.jagora.BuyOrder.class);
+		Class.forName("uk.ac.glasgow.jagora.impl.SEProxy").getMethod("proxyPlaceSellOrder",uk.ac.glasgow.jagora.SellOrder.class);
+		Class.forName("uk.ac.glasgow.jagora.impl.SEProxy").getMethod("proxyCancelBuyOrder",uk.ac.glasgow.jagora.BuyOrder.class);
+		Class.forName("uk.ac.glasgow.jagora.impl.SEProxy").getMethod("proxyCancelSellOrder",uk.ac.glasgow.jagora.SellOrder.class);
 	}
 	
 	@Test
 	public void testGetBidAndOffer(){
+		StubStockExchange dse = new StubStockExchange();
 		stockExchange.placeBuyOrder(badBuyOrder);
 		stockExchange.placeSellOrder(goodSellOrder);
 		
-		SEProxy seProxy = new SEProxy(stockExchange);
+		SEProxy seProxy = new SEProxy(dse);
 		Object resultBid = seProxy.proxygetBestBid(lemons);
 		Object resultOffer = seProxy.proxygetBestOffer(lemons);
 		assertEquals(true, resultBid instanceof Double);

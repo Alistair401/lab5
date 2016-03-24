@@ -6,9 +6,9 @@ import java.util.Map;
 import java.util.Random;
 
 import uk.ac.glasgow.jagora.BuyOrder;
-import uk.ac.glasgow.jagora.SEProxy;
 import uk.ac.glasgow.jagora.SellOrder;
 import uk.ac.glasgow.jagora.Stock;
+import uk.ac.glasgow.jagora.StockExchangeOrders;
 import uk.ac.glasgow.jagora.TickEvent;
 import uk.ac.glasgow.jagora.Trade;
 
@@ -59,7 +59,7 @@ public class RandomTrader extends AbstractTrader{
 	}
 
 	@Override
-	public void speak(SEProxy stockExchange) {
+	public void speak(StockExchangeOrders stockExchange) {
 
 		Integer quantity = random.nextInt(maxQuantity);
 		if (random.nextBoolean()){

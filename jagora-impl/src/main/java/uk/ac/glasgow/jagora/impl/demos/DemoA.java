@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import uk.ac.glasgow.jagora.SEProxy;
 import uk.ac.glasgow.jagora.Stock;
 import uk.ac.glasgow.jagora.StockExchange;
 import uk.ac.glasgow.jagora.TickEvent;
@@ -20,6 +19,7 @@ import uk.ac.glasgow.jagora.impl.DefaultWorld;
 import uk.ac.glasgow.jagora.impl.LimitBuyOrder;
 import uk.ac.glasgow.jagora.impl.LimitSellOrder;
 import uk.ac.glasgow.jagora.impl.RandomTrader;
+import uk.ac.glasgow.jagora.impl.SEProxy;
 
 public class DemoA {
 	public static void main (String [] args){
@@ -27,7 +27,7 @@ public class DemoA {
 		Stock lemons = new DefaultStock("lemons");
 		
 		//create a new proxy
-		SEProxy seProxy= new SEProxy(stockExchange);
+		SEProxy seProxy= new SEProxy((DefaultStockExchange)stockExchange);
 		//==================
 		
 		

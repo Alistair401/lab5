@@ -7,10 +7,11 @@ import uk.ac.glasgow.jagora.BuyOrder;
 import uk.ac.glasgow.jagora.SellOrder;
 import uk.ac.glasgow.jagora.Stock;
 import uk.ac.glasgow.jagora.StockExchange;
+import uk.ac.glasgow.jagora.StockExchangeOrders;
 import uk.ac.glasgow.jagora.TickEvent;
 import uk.ac.glasgow.jagora.Trade;
 
-public class StubStockExchange implements StockExchange {
+public class StubStockExchange implements StockExchange,StockExchangeOrders {
 
 	public final List<BuyOrder> buyOrders = new ArrayList<BuyOrder>();
 	public final List<SellOrder> sellOrders = new ArrayList<SellOrder>();
@@ -58,6 +59,40 @@ public class StubStockExchange implements StockExchange {
 	@Override
 	public Double getBestBid(Stock stock) {
 		return 5.0;
+	}
+
+	@Override
+	public void proxyPlaceBuyOrder(BuyOrder buyOrder) {
+		this.placeBuyOrder(buyOrder);
+		
+	}
+
+	@Override
+	public void proxyPlaceSellOrder(SellOrder sellOrder) {
+		this.placeSellOrder(sellOrder);
+		
+	}
+
+	@Override
+	public void proxyCancelBuyOrder(BuyOrder buyOrder) {
+		this.cancelBuyOrder(buyOrder);
+		
+	}
+
+	@Override
+	public void proxyCancelSellOrder(SellOrder sellOrder) {
+		this.cancelSellOrder(sellOrder);
+		
+	}
+
+	@Override
+	public Double proxygetBestOffer(Stock stock) {
+		return this.getBestOffer(stock);
+	}
+
+	@Override
+	public Double proxygetBestBid(Stock stock) {
+		return this.getBestBid(stock);
 	}
 
 }
