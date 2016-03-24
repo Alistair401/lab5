@@ -4,11 +4,10 @@ import static java.lang.String.format;
 import static java.util.stream.IntStream.range;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
+import uk.ac.glasgow.jagora.SEProxy;
 import uk.ac.glasgow.jagora.Stock;
 import uk.ac.glasgow.jagora.StockExchange;
 import uk.ac.glasgow.jagora.TickEvent;
@@ -27,6 +26,10 @@ public class DemoA {
 		StockExchange stockExchange = new DefaultStockExchange(new DefaultWorld());
 		Stock lemons = new DefaultStock("lemons");
 		
+		//create a new proxy
+		SEProxy seProxy= new SEProxy(stockExchange);
+		//==================
+		
 		
 		Trader bootstrapper = new DefaultTrader("BootStrapper", 100.0, lemons, 50);
 		stockExchange.placeBuyOrder(new LimitBuyOrder(bootstrapper, lemons, 5, 9.0));
@@ -44,7 +47,7 @@ public class DemoA {
 		for (Integer i : range(0,1000).toArray()){
 			Integer nextIndex = sourceRandom.nextInt(traders.size());
 			Trader trader = traders.get(nextIndex);
-			trader.speak(stockExchange);
+			trader.speak(seProxy);
 			stockExchange.doClearing();
 		}
 		

@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import uk.ac.glasgow.jagora.SEProxy;
 import uk.ac.glasgow.jagora.Stock;
-import uk.ac.glasgow.jagora.StockExchange;
 import uk.ac.glasgow.jagora.TickEvent;
 import uk.ac.glasgow.jagora.Trade;
 
@@ -33,7 +33,7 @@ public class DefaultTrader extends AbstractTrader {
 	}
 
 	@Override
-	public void speak(StockExchange stockExchange) {
+	public void speak(SEProxy stockExchange) {
 		//Does nothing.
 	}
 

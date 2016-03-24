@@ -12,12 +12,13 @@ import uk.ac.glasgow.jagora.Observer;
 import uk.ac.glasgow.jagora.SellOrder;
 import uk.ac.glasgow.jagora.Stock;
 import uk.ac.glasgow.jagora.StockExchange;
+import uk.ac.glasgow.jagora.StockExchangeOrders;
 import uk.ac.glasgow.jagora.Subject;
 import uk.ac.glasgow.jagora.TickEvent;
 import uk.ac.glasgow.jagora.Trade;
 import uk.ac.glasgow.jagora.World;
 
-public class DefaultStockExchange implements StockExchange,Subject {
+public class DefaultStockExchange implements StockExchange,Subject,StockExchangeOrders {
 
 	private final Map<Stock,Market> markets;
 	private World world;
@@ -129,6 +130,40 @@ public class DefaultStockExchange implements StockExchange,Subject {
 				observer.notify(log);
 			}
 		}
+	}
+
+	@Override
+	public void proxyPlaceBuyOrder(BuyOrder buyOrder) {
+		this.placeBuyOrder(buyOrder);
+		
+	}
+
+	@Override
+	public void proxyPlaceSellOrder(SellOrder sellOrder) {
+		this.placeSellOrder(sellOrder);
+		
+	}
+
+	@Override
+	public void proxyCancelBuyOrder(BuyOrder buyOrder) {
+		this.cancelBuyOrder(buyOrder);
+		
+	}
+
+	@Override
+	public void proxyCancelSellOrder(SellOrder sellOrder) {
+		this.cancelSellOrder(sellOrder);
+		
+	}
+
+	@Override
+	public Double proxygetBestOffer(Stock stock) {
+		return this.getBestOffer(stock);
+	}
+
+	@Override
+	public Double proxygetBestBid(Stock stock) {
+		return this.getBestBid(stock);
 	}
 
 }

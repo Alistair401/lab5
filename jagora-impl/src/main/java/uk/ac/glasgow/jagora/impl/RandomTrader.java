@@ -4,15 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
 import uk.ac.glasgow.jagora.BuyOrder;
+import uk.ac.glasgow.jagora.SEProxy;
 import uk.ac.glasgow.jagora.SellOrder;
 import uk.ac.glasgow.jagora.Stock;
-import uk.ac.glasgow.jagora.StockExchange;
 import uk.ac.glasgow.jagora.TickEvent;
 import uk.ac.glasgow.jagora.Trade;
-import uk.ac.glasgow.jagora.impl.AbstractTrader;
-import uk.ac.glasgow.jagora.impl.LimitBuyOrder;
-import uk.ac.glasgow.jagora.impl.LimitSellOrder;
 
 public class RandomTrader extends AbstractTrader{
 	
@@ -61,12 +59,12 @@ public class RandomTrader extends AbstractTrader{
 	}
 
 	@Override
-	public void speak(StockExchange stockExchange) {
+	public void speak(SEProxy stockExchange) {
 
 		Integer quantity = random.nextInt(maxQuantity);
 		if (random.nextBoolean()){
 			
-			Double bestBidOnMarket = stockExchange.getBestBid(stock);
+			Double bestBidOnMarket = stockExchange.proxygetBestBid(stock);
 			if (bestBidOnMarket != null)
 				lastKnownBestBid = bestBidOnMarket;
 			else
@@ -77,12 +75,12 @@ public class RandomTrader extends AbstractTrader{
 					createRandomPrice(bestBidOnMarket);
 
 				SellOrder sellOrder = new LimitSellOrder (this, stock, quantity, sellPrice);
-				stockExchange.placeSellOrder(sellOrder);
+				stockExchange.proxyPlaceSellOrder(sellOrder);
 			}
 			
 		} else {
 			
-			Double bestOfferOnMarket = stockExchange.getBestOffer(stock);
+			Double bestOfferOnMarket = stockExchange.proxygetBestOffer(stock);
 			if (bestOfferOnMarket != null)
 				lastKnownBestOffer = bestOfferOnMarket;
 			else
@@ -94,7 +92,7 @@ public class RandomTrader extends AbstractTrader{
 					createRandomPrice(bestOfferOnMarket);
 
 				BuyOrder buyOrder = new LimitBuyOrder (this, stock, quantity, buyPrice);
-				stockExchange.placeBuyOrder(buyOrder);
+				stockExchange.proxyPlaceBuyOrder(buyOrder);
 			}
 		}
 		
